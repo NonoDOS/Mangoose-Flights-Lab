@@ -39,8 +39,8 @@
   <h2></h2>
   <form action="/flights/<%= flight._id %>/tickets" class="tickets" method= "POST">
     <label for="tickets">Tickets:</label>
-    <input type="string" name="seat" placeholder="Enter Seat No. here" required pattern="[A-F][1-9]\d?">
-    <input type="number" name="price" id="Price-input"placeholder="Enter Price">
+    <input type="string" name="seat" placeholder="Enter Seat No.(ex. A1, F99): here" required pattern="[A-F][1-9]\d?">
+    <input type="number" name="price" id="Price-input"placeholder="Enter Price in $">
     <button type="submit">Add Ticket</button>
   </form>
 </main>
