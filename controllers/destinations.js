@@ -11,6 +11,7 @@ function newDestination(req, res) {
     res.render("destinations/new", {
       title: "Add Destination",
       destinations: destinations,
+      err:err,
     })
   })
 }

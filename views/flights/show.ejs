@@ -9,7 +9,7 @@
     <div><%= flight.airline %></div>
     <div>Airport: </div>
     <div><%= flight.airport %></div>
-    <div>Departs: </div>
+    <div>Flight No.: </div>
     <div><%= flight.flightNo%></div>
     <div>Departs: </div>
     <div><%= flight.departs %></div>
@@ -35,7 +35,7 @@
       <% destNotInDests.forEach(destination => { %>
         <% if (!destEnt.includes(destination.destination)) { %>
         <option value="<%= destination._id %>"><%= destination.destination%></option>
-      <% }) %>
+      <% } %>
       <% }) %>
     </select>
     <button type="submit">Add to destination</button>
