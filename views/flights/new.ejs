@@ -7,7 +7,7 @@
   <h1><%= title %></h1>
   <form id="new-form" action="/flights" method="POST">
     <label for="Airline-input">Airline:</label>
-    <select name="flightNo" id="flightNo-select">
+    <select name="airline" id="airline-select">
       <option value="American">American</option> 
       <option value="Southwest">Southwest</option>
       <option value="United">United</option>
@@ -17,7 +17,8 @@
       <option value="Jet Blue">Jet Blue</option> 
       <option value="Hawaiian">Hawaiian</option> 
     </select>
-    <label for="Airport-input">Airport:</label><select name="flightNo" id="flightNo-select">
+    <label for="Airport-input">Airport:</label>
+    <select name="airport" id="airport-select">
       <option value="DFW">DFW</option> 
       <option value="DEN">DEN</option>
       <option value="SFO">SFO</option>
@@ -33,10 +34,9 @@
     <input type="number" name="Airline" id="Airline-input">
     
     
-    <label for="departs">Departs (separate actors with commas):</label>
+    <label for="departs">Departs</label>
     <input type="date" name="departs" id="departs">
-    <label for="tickets">Now Showing:</label>
-    <input type="checkbox" name="nowShowing" checked id="now-showing-checkbox">
+
     <button type="submit">Add flight</button>
   </form>
 </main>

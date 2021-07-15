@@ -7,17 +7,45 @@
   <p>Please first ensure that the destination is not in the dropdown
     <select>
       <% destinations.forEach(function(destination) { %> 
-        <option><%= destination.name %> </option>
+        <option><%= destination.airport %> </option>
       <% }) %> 
     </select>
   </p>
   <form id="add-destination-form" action="/destinations" method="POST">
-    <label for="name-input">Name:</label>
-    <input type="text" name="name" id="name-input">
-    <label for="date-input">Born:</label>
-    <input type="date" name="born" id="date-input">
+    <label for="airport-input">Airport:</label>
+    <input type="text" name="airport" id="airport-input"placeholder="Enter Destination here">
+   
     <button type="submit">Add destination</button>
   </form>
+  <h1><%= tickets %></h1>
+  <% if (movie.tickets.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Seat No.</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+        <% movie.tickets.forEach(function(ticket) { %>
+          <tr>
+            <td><%= ticket.createdAt.toLocaleDateString() %></td>
+            <td><%= ticket.content %></td>
+            <td><%= ticket.rating %></td>
+          </tr>
+        <% }) %>
+        <tr>
+          <td colspan="2"></td>
+          <td>
+            <strong><%= (total / movie.tickets.length).toFixed(1) %></strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% } else { %>
+    <h3>No tickets Yet</h3>
+  <% } %>
 </main>
 
 <%- include("../partials/footer") %> 

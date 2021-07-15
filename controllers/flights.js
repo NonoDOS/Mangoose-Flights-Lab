@@ -1,15 +1,39 @@
-import {flight} from "../models/flight.js"
+import {Flight} from "../models/flight.js"
+import {Destination} from "../models/destination.js"
 
 export {
 	index,
   show,
   newFlight as new,
   create,
+  createTicket,
+  addDestination,
 
+}
+function addDestination(req,res){
+  Flight.findById(req.params.id, function(err, flight) {
+    flight.destinations.push(req.body.destinationId)
+    flight.save(function(err) {
+      res.redirect(`/flights/${flight._id}`)
+    })
+  })
+}
+
+
+function createTicket(req, res) {
+  Flight.findById(req.params.id, function(err, flight){
+    console.log(req.body, "req.body")
+    console.log(flight, "before push")
+    flight.tickets.push(req.body)
+    console.log(flight, "after push")
+    flight.save(function(err) {
+      res.redirect(`/flights/${flight._id}`)
+    })
+  })
 }
 
 function index(req, res) {
-  flightDb.find({}, function(error, flights) {
+  Flight.find({}, function(error, flights) {
     res.render('flights/index', {
       flights: flights,
       error: error,
@@ -19,13 +43,20 @@ function index(req, res) {
 }
 
 function show(req, res) {
-    flightDb.findById(req.params.id, function(error, flight) {
-      res.render('flights/show', {
+  Flight.findById(req.params.id)
+  .populate("destinations")
+  .exec(function(err, flight){
+    Destination.find({_id: {$nin: flight.destinations}}, function(err, destNotInDests) {
+      res.render("flights/show", {
+        title: "flight Detail",
         flight: flight,
-        error: error
+        err: err,
+        destNotInDests: destNotInDests
       })
     })
-  }
+  })
+}
+
 
   function newFlight(req, res) {
     res.render("flights/new", {
@@ -34,47 +65,14 @@ function show(req, res) {
   }
 
   function create(req, res) {
-    // making the checkbox a boolean
-    // req.body.nowShowing = !!req.body.nowShowing
-    // for (let key in req.body) {
-    //   if (req.body[key] === '') delete req.body[key]
-    
-
-     // This: 
-  // flight.create(req.body, function(err, flight) {
-  //   if (err) return res.redirect('/flights/new')
-  //   res.redirect('/flights')
-  // })
-
-  
     // equals:
     const flight = new Flight(req.body)
-    flight.save(function(err) {
-       // to handle errors
+    flight.save(function(err) { 
+      // to handle errors
+      console.log(err)
       if (err) return res.redirect('/flights/new')
       //redirect right back to new.ejs
       res.redirect(`/flights/${flight._id}`)//update this 
-      const flightSchema = new mongoose.Schema({
-        Airline: {
-          type: String, required: true,
-          enum: ["American", "Southwest", "United", "Delta","Air Canada","Alaska", "Jet Blue","Hawaiian"]
-        },
-       Airport:{
-          type: String, 
-          enum: ["DFW", "DEN", "SFO", "JFK", "SAN", "LAX", "LAS", "DFW", "DCA"]
-        },
-        FlightNo: {
-          type: Number, min: 10, max: 9999
-        },
-        Depart: {
-          type: Number,
-          efault: function() {
-            return new Date().getDate()
-          }
-        },
-        Tickets:{
-          type:[ticketSchema]
-        }
-      })
     })
   }
+   

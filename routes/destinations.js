@@ -1,5 +1,5 @@
 import { Router } from "express"
-import * as performersCtrl from "../controllers/performers.js"
+import * as destinationsCtrl from "../controllers/destinations.js"
 
 export {
   router
@@ -7,7 +7,7 @@ export {
 
 const router = Router()
 
-//localhost:3000/performers/new
-router.get("/new", performersCtrl.new)
-//localhost:3000/performers
-router.post("/", performersCtrl.create)
+//localhost:3000/destinations/new
+router.get("/new", destinationsCtrl.new)
+//localhost:3000/destinations
+router.post("/", destinationsCtrl.create)

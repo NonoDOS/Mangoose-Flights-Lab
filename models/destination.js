@@ -1,17 +1,16 @@
 import mongoose from "mongoose"
+const Schema = mongoose.Schema
 
 export {
   Destination
 }
 
-const Schema = mongoose.Schema
+const destinationSchema = new Schema({
+  airport:{
+      type: String, 
+      unique : true,
+    },
+  },{timestamps: true})
 
-const DestinationSchema = new Schema({
-  type: String, 
-      enum: ["DFW", "DEN", "SFO", "JFK", "SAN", "LAX", "LAS", "DFW", "DCA"],
-      born: Date
-}, {
-  timestamps: true
-})
 
-const Destination = mongoose.model('Destination', DestinationSchema)
+const Destination = mongoose.model('Destination', destinationSchema)
