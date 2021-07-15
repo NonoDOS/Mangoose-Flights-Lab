@@ -17,36 +17,33 @@
     <label for="airport-input">Airport:</label>
     <input type="text" name="airport" id="airport-input" placeholder="Enter Destination here">
     <button type="submit">Add Destination</button>
-  </form>
-
-  
-  <% if (flight.destinations.length) { %>
-    <table>
-      <thead>
-        <tr>
-          <th>Airport</th>
-        </tr>
-      </thead>
-      <tbody>
-       
-        <% flight.destinations.forEach(function(destination) { %>
-          <tr>
-            <td><%= destination.createdAt.toLocaleDateString() %></td>
-            <td><%= destination.airport %></td>
-            
-          </tr>
-        <% }) %>
-        <tr>
-          <td colspan="2"></td>
+</div>
+</form>
+<% if (err) { %>
+  <p>Hey! That Airport already exists! Please enter a new one.</p>
+  <% } %>  
+  <div>
+    <p>Please first ensure that the Airport is not already listed below:
+      <table>
+        <% let counter = 0 %> 
+        <% destinations.forEach(function(destination) { %>
+          <% if (counter === 3){ %>
+            <tr>
+            </tr>
+              <td>
+                <%= destination.destination %>
+              </td>
+          <% counter = 1 %> 
+          <% } else { %>  
           <td>
-            <strong><%= (total / flight.destinations.length).toFixed(1) %></strong>
+            <%= destination.destination %>
           </td>
-        </tr>
-      </tbody>
-    </table>
-  <% } else { %>
-    <h3>No Destination Yet</h3>
-  <% } %>
+          <% counter++ %> 
+          <% } %> 
+        <% }) %>
+        </table>
+    </p>
+  </div>
 </main>
 
 <%- include("../partials/footer") %> 
