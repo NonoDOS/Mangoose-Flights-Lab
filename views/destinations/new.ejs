@@ -11,40 +11,41 @@
       <% }) %> 
     </select>
   </p>
+
+  <h1><%= destinations %></h1>
   <form id="add-destination-form" action="/destinations" method="POST">
     <label for="airport-input">Airport:</label>
-    <input type="text" name="airport" id="airport-input"placeholder="Enter Destination here">
-   
-    <button type="submit">Add destination</button>
+    <input type="text" name="airport" id="airport-input" placeholder="Enter Destination here">
+    <button type="submit">Add Destination</button>
   </form>
-  <h1><%= tickets %></h1>
-  <% if (movie.tickets.length) { %>
+
+  
+  <% if (flight.destinations.length) { %>
     <table>
       <thead>
         <tr>
-          <th>Seat No.</th>
-          <th>Price</th>
+          <th>Airport</th>
         </tr>
       </thead>
       <tbody>
        
-        <% movie.tickets.forEach(function(ticket) { %>
+        <% flight.destinations.forEach(function(destination) { %>
           <tr>
-            <td><%= ticket.createdAt.toLocaleDateString() %></td>
-            <td><%= ticket.content %></td>
-            <td><%= ticket.rating %></td>
+            <td><%= destination.createdAt.toLocaleDateString() %></td>
+            <td><%= destination.airport %></td>
+            
           </tr>
         <% }) %>
         <tr>
           <td colspan="2"></td>
           <td>
-            <strong><%= (total / movie.tickets.length).toFixed(1) %></strong>
+            <strong><%= (total / flight.destinations.length).toFixed(1) %></strong>
           </td>
         </tr>
       </tbody>
     </table>
   <% } else { %>
-    <h3>No tickets Yet</h3>
+    <h3>No Destination Yet</h3>
   <% } %>
 </main>
 
